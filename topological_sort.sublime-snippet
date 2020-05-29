@@ -1,0 +1,37 @@
+<snippet>
+	<content><![CDATA[
+
+vector<int> adj[SIZE];
+int indeg[SIZE];
+int vis[SIZE];
+vector<int> topo;
+
+// initialize indeg first
+
+minheap q;
+rep(i,1,n){
+    if(indeg[i]==0) {q.push(i);vis[i]=1;}
+}
+
+while(!q.empty()){
+    int x = q.top();
+    q.pop();
+    topo.pb(x);
+    for(auto it:adj[x]){
+        if(!vis[it]){
+            indeg[it]--;
+            if(indeg[it]==0){
+                q.push(it);
+                vis[it]=1;
+            }
+        }
+    }
+}
+rep(i,0,sz(topo)-1) cout<<topo[i]<<" ";
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>topological_sort</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
