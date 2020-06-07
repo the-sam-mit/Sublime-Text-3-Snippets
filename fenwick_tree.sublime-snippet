@@ -1,0 +1,42 @@
+<snippet>
+	<content><![CDATA[
+
+// 0-based indexing of array
+
+struct FenwickTree {
+    vector<int> bit;  // binary indexed tree
+    int n;
+
+    FenwickTree(int n) {
+        this->n = n;
+        bit.assign(n, 0);
+    }
+
+    FenwickTree(vector<int> a) : FenwickTree(a.size()) {
+        for (size_t i = 0; i < a.size(); i++)
+            add(i, a[i]);
+    }
+
+    int sum(int r) {
+        int ret = 0; // ret = INF;
+        for (; r >= 0; r = (r & (r + 1)) - 1)
+            ret += bit[r]; // ret = min(ret, bit[r]);
+        return ret;
+    }
+
+    int sum(int l, int r) {
+        return sum(r) - sum(l - 1); //not for min 
+    }
+
+    void add(int idx, int delta) {
+        for (; idx < n; idx = idx | (idx + 1))
+            bit[idx] += delta; //bit[idx] = min(bit[idx], val);
+    }
+};
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>fenwick_tree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
